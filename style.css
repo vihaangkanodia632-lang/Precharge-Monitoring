@@ -1,0 +1,339 @@
+:root {
+  --carbon: #0B0D10;
+  --panel: #161A20;
+  --panel-border: #232932;
+  --steel: #5C6670;
+  --steel-dim: #343C45;
+  --amber: #FF7A1A;
+  --green: #2ED573;
+  --red: #FF4757;
+  --text-primary: #E8EAED;
+  --text-secondary: #9AA3AC;
+
+  --font-display: 'Rajdhani', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--carbon);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  min-height: 100vh;
+}
+
+body {
+  background-image:
+    repeating-linear-gradient(135deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 6px);
+  padding: 20px 24px 48px;
+}
+
+.mono { font-family: var(--font-mono); }
+
+/* ---------- Topbar ---------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--panel-border);
+  margin-bottom: 22px;
+}
+
+.topbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar__mark {
+  color: var(--amber);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.topbar__title {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.topbar__team {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.04em;
+}
+
+.topbar__sub {
+  font-size: 12px;
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.topbar__status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+
+.conn-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--steel-dim);
+  display: inline-block;
+}
+
+.conn-dot.is-live {
+  background: var(--green);
+  box-shadow: 0 0 0 3px rgba(46, 213, 115, 0.18);
+}
+
+.conn-dot.is-stale {
+  background: var(--red);
+  box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.18);
+}
+
+.conn-label { letter-spacing: 0.06em; color: var(--text-primary); }
+
+.topbar__divider { color: var(--steel); }
+
+/* ---------- Sequence rail (signature element) ---------- */
+
+.rail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  padding: 18px 16px;
+  margin-bottom: 22px;
+  overflow-x: auto;
+}
+
+.rail__node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.rail__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--steel-dim);
+  border: 2px solid var(--panel-border);
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.rail__node.is-active .rail__dot {
+  background: var(--green);
+  border-color: var(--green);
+  box-shadow: 0 0 10px rgba(46, 213, 115, 0.5);
+}
+
+.rail__label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+}
+
+.rail__node.is-active .rail__label { color: var(--text-primary); }
+
+.rail__line {
+  flex: 1;
+  height: 2px;
+  min-width: 18px;
+  background: var(--steel-dim);
+  border-radius: 1px;
+  transition: background 0.25s ease;
+}
+
+.rail__line.is-active { background: var(--green); }
+
+/* ---------- Card grid ---------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  padding: 18px 18px 20px;
+  position: relative;
+  transition: border-color 0.25s ease;
+}
+
+.card.is-active {
+  border-color: rgba(46, 213, 115, 0.35);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+  border-radius: 10px 0 0 10px;
+  background: var(--steel-dim);
+  transition: background 0.25s ease;
+}
+
+.card.is-active::before {
+  background: var(--green);
+}
+
+.card__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  color: var(--steel);
+  text-transform: uppercase;
+}
+
+.card__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+  margin: 4px 0 10px;
+  letter-spacing: 0.01em;
+}
+
+.card__status {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: 0.03em;
+  color: var(--steel);
+  margin: 0 0 6px;
+}
+
+.card.is-active .card__status {
+  color: var(--green);
+}
+
+.card__note {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.card__meter { margin-top: 10px; }
+
+.card__meter-track {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--steel-dim);
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.card__meter-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--amber);
+  border-radius: 3px;
+  transition: width 0.25s ease;
+}
+
+.card__meter-readout {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.card__adc { color: var(--text-secondary); }
+
+/* ---------- HV bus banner ---------- */
+
+.bus-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.bus-banner__bolt {
+  font-size: 20px;
+  color: var(--steel);
+}
+
+.bus-banner__label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+.bus-banner.is-live {
+  border-color: rgba(46, 213, 115, 0.4);
+}
+
+.bus-banner.is-live .bus-banner__bolt,
+.bus-banner.is-live .bus-banner__label {
+  color: var(--green);
+}
+
+.bus-banner__hint {
+  font-size: 12px;
+  color: var(--steel);
+  width: 100%;
+}
+
+/* ---------- Footer ---------- */
+
+.foot {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--steel);
+  letter-spacing: 0.04em;
+  margin-top: 26px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 880px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; }
+  .rail { justify-content: flex-start; }
+  .topbar { flex-direction: column; align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

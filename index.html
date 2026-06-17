@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Precharge Telemetry — Live AIR Status</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar__brand">
+      <span class="topbar__mark">◢</span>
+      <div class="topbar__title">
+        <span class="topbar__team">FSAE PRECHARGE</span>
+        <span class="topbar__sub">Live Telemetry</span>
+      </div>
+    </div>
+
+    <div class="topbar__status">
+      <span class="conn-dot" data-conn-dot></span>
+      <span class="conn-label" data-conn-label>CONNECTING</span>
+      <span class="topbar__divider">·</span>
+      <span class="topbar__updated">updated <span data-last-update>—</span></span>
+    </div>
+  </header>
+
+  <!-- Signature element: the actual precharge logic chain, lighting up stage by stage -->
+  <section class="rail" aria-label="Precharge sequence">
+    <div class="rail__node" data-node="comparator">
+      <span class="rail__dot"></span>
+      <span class="rail__label">COMP</span>
+    </div>
+    <span class="rail__line" data-line-after="comparator"></span>
+
+    <div class="rail__node" data-node="timer">
+      <span class="rail__dot"></span>
+      <span class="rail__label">TIMER</span>
+    </div>
+    <span class="rail__line" data-line-after="timer"></span>
+
+    <div class="rail__node" data-node="and_gate">
+      <span class="rail__dot"></span>
+      <span class="rail__label">AND</span>
+    </div>
+    <span class="rail__line" data-line-after="and_gate"></span>
+
+    <div class="rail__node" data-node="precharge">
+      <span class="rail__dot"></span>
+      <span class="rail__label">PRECHG</span>
+    </div>
+    <span class="rail__line" data-line-after="precharge"></span>
+
+    <div class="rail__node" data-node="air_minus">
+      <span class="rail__dot"></span>
+      <span class="rail__label">AIR−</span>
+    </div>
+    <span class="rail__line" data-line-after="air_minus"></span>
+
+    <div class="rail__node" data-node="air_plus">
+      <span class="rail__dot"></span>
+      <span class="rail__label">AIR+</span>
+    </div>
+  </section>
+
+  <main class="grid">
+
+    <article class="card" data-card="comparator">
+      <span class="card__eyebrow">Stage 1</span>
+      <h2 class="card__title">Comparator</h2>
+      <p class="card__status" data-status>—</p>
+      <div class="card__meter">
+        <div class="card__meter-track"><div class="card__meter-fill" data-gauge-fill></div></div>
+        <div class="card__meter-readout">
+          <span class="mono" data-voltage>— V</span>
+          <span class="mono card__adc" data-adc>ADC —</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-card="timer">
+      <span class="card__eyebrow">Stage 2</span>
+      <h2 class="card__title">555 Timer</h2>
+      <p class="card__status" data-status>—</p>
+      <div class="card__meter">
+        <div class="card__meter-track"><div class="card__meter-fill" data-gauge-fill></div></div>
+        <div class="card__meter-readout">
+          <span class="mono" data-voltage>— V</span>
+          <span class="mono card__adc" data-adc>ADC —</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-card="and_gate">
+      <span class="card__eyebrow">Stage 3</span>
+      <h2 class="card__title">AND Gate</h2>
+      <p class="card__status" data-status>—</p>
+      <p class="card__note">Logic output, comparator AND timer</p>
+    </article>
+
+    <article class="card" data-card="precharge">
+      <span class="card__eyebrow">Stage 4</span>
+      <h2 class="card__title">Precharge Relay</h2>
+      <p class="card__status" data-status>—</p>
+      <p class="card__note">Resistor path energizing the bus</p>
+    </article>
+
+    <article class="card" data-card="air_minus">
+      <span class="card__eyebrow">Stage 5</span>
+      <h2 class="card__title">AIR−</h2>
+      <p class="card__status" data-status>—</p>
+      <p class="card__note">Negative accumulator isolation relay</p>
+    </article>
+
+    <article class="card" data-card="air_plus">
+      <span class="card__eyebrow">Stage 6</span>
+      <h2 class="card__title">AIR+</h2>
+      <p class="card__status" data-status>—</p>
+      <p class="card__note">Positive accumulator isolation relay</p>
+    </article>
+
+  </main>
+
+  <section class="bus-banner" data-bus-banner>
+    <span class="bus-banner__bolt">⚡</span>
+    <span class="bus-banner__label" data-bus-label>HV BUS OPEN</span>
+    <span class="bus-banner__hint">AIR− and AIR+ both closed = pack connected to the bus</span>
+  </section>
+
+  <footer class="foot">
+    ESP32-S3 → Firebase Realtime Database → GitHub Pages
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
